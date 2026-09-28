@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>กรุงเทพฯ จะรอดไหม?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0d2238;--glass:rgba(255,255,255,.78);--blue:#1e6fd9;--green:#2fa36b;--red:#d9483b;--water:#2a7fc4}
+:root:not([data-theme="light"]){color-scheme:light}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Noto Sans Thai','Sarabun',Tahoma,sans-serif;color:var(--ink);background:#7cc4f0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+#sky{position:fixed;inset:0;transition:background 1.5s;background:linear-gradient(#5db8f5,#cdeeff 70%)}
+[data-s="1"] #sky{background:linear-gradient(#7fa9c9,#d5e3ea 70%)}
+[data-s="2"] #sky{background:linear-gradient(#5f7d96,#a9b9c4 70%)}
+[data-s="3"] #sky{background:linear-gradient(#3f5468,#7c8d9a 70%)}
+[data-s="4"] #sky{background:linear-gradient(#1c2836,#4a5a68 70%)}
+#sun{position:fixed;top:6vh;left:8vw;width:110px;height:110px;border-radius:50%;background:radial-gradient(#fff6b0,#ffd54a 60%,rgba(255,213,74,0) 71%);box-shadow:0 0 90px 30px rgba(255,220,90,.55);transition:opacity 1.5s;animation:pulse 4s ease-in-out infinite}
+[data-s="1"] #sun{opacity:.45}[data-s="2"] #sun,[data-s="3"] #sun,[data-s="4"] #sun{opacity:0}
+@keyframes pulse{50%{transform:scale(1.08)}}
+#rain{position:fixed;inset:0;opacity:0;transition:opacity 1.5s;pointer-events:none;background:repeating-linear-gradient(105deg,transparent 0 14px,rgba(200,225,245,.55) 14px 15px);background-size:140px 140px;animation:rain .5s linear infinite;z-index:5}
+[data-s="3"] #rain{opacity:.45}[data-s="4"] #rain{opacity:.9}
+@keyframes rain{to{background-position:-40px 140px}}
+#city{position:fixed;left:0;right:0;bottom:0;height:62vh;display:flex;align-items:flex-end;justify-content:space-around;padding-bottom:9vh}
+.b{width:6vw;min-width:34px;background:linear-gradient(#5a7690,#3b556e);border-radius:3px 3px 0 0;position:relative;transition:filter 1.5s;
+background-image:repeating-linear-gradient(0deg,transparent 0 14px,rgba(255,240,170,.55) 14px 20px),linear-gradient(#5a7690,#3b556e);background-size:60% 100%,100% 100%;background-repeat:repeat-y,no-repeat;background-position:center,0 0}
+[data-s="3"] .b,[data-s="4"] .b{filter:brightness(.6)}
+.tree{position:absolute;bottom:-1px;font-size:38px;transition:opacity 1.5s}
+[data-s="1"] .tree,[data-s="2"] .tree{opacity:.6}[data-s="3"] .tree,[data-s="4"] .tree{opacity:.25}
+#road{position:fixed;left:0;right:0;bottom:0;height:9vh;background:#4b5560;border-top:5px solid #8b959e}
+#road:after{content:"";position:absolute;left:0;right:0;top:45%;border-top:4px dashed #f2f2f2}
+#car{position:fixed;bottom:2.5vh;left:-90px;font-size:38px;animation:drive 14s linear infinite;transition:opacity 1s}
+[data-s="3"] #car,[data-s="4"] #car{animation-play-state:paused;opacity:.9}
+@keyframes drive{to{left:105vw}}
+#water{position:fixed;left:0;right:0;bottom:0;height:0;background:linear-gradient(rgba(60,140,200,.78),rgba(25,85,140,.92));transition:height 1.8s cubic-bezier(.3,.8,.3,1);z-index:4}
+#water:before{content:"";position:absolute;left:0;right:0;top:-14px;height:16px;background:radial-gradient(circle at 12px 16px,transparent 11px,rgba(60,140,200,.78) 12px) 0 0/24px 16px repeat-x;animation:wave 3s linear infinite}
+@keyframes wave{to{background-position:24px 0}}
+#leaves{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:6}
+.leaf{position:absolute;top:-30px;font-size:22px;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(105vh) rotate(360deg)}}
+#ui{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;padding:12px;gap:10px;overflow-y:auto}
+.glass{background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.7);border-radius:20px;box-shadow:0 8px 30px rgba(10,40,80,.18)}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;gap:12px}
+h1{font-size:clamp(18px,3.2vw,28px);font-weight:800}
+#prog{font-weight:600;white-space:nowrap}
+.mid{display:flex;gap:12px;flex:1;align-items:flex-start;flex-wrap:wrap}
+main{flex:1 1 380px;padding:18px 22px;min-width:0}
+#meter{flex:0 0 200px;padding:14px 16px;margin-left:auto}
+@media(max-width:700px){#meter{flex:1 1 100%;order:-1}}
+#meter small{font-weight:800;letter-spacing:.05em}
+.bar{height:22px;border-radius:12px;background:rgba(13,34,56,.15);overflow:hidden;margin:6px 0}
+#fill{height:100%;width:0;background:linear-gradient(90deg,#39b26d,#e8b63a,#d9483b);background-size:200px 100%;transition:width 1.6s cubic-bezier(.3,.8,.3,1)}
+#pct{font-size:26px;font-weight:800}
+#q{font-size:clamp(18px,2.6vw,25px);font-weight:800;line-height:1.5;margin-bottom:14px}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-size:clamp(16px,2vw,20px);padding:14px 16px;margin-bottom:10px;border-radius:14px;border:2px solid rgba(30,111,217,.25);background:#fff;color:var(--ink);cursor:pointer;min-height:56px;transition:transform .15s,border-color .2s,background .3s}
+.opt:hover:not(:disabled){transform:translateX(4px);border-color:var(--blue)}
+.opt.sel{border-color:var(--blue);background:#e4f0ff}
+.opt.ok{border-color:var(--green);background:#dbf5e7}
+.opt.no{border-color:var(--red);background:#fde2df}
+.opt:disabled{cursor:default}
+#fb{display:none;padding:12px 14px;border-radius:14px;margin:4px 0 12px;font-size:clamp(15px,1.9vw,18px);line-height:1.6}
+#fb.ok{display:block;background:#dbf5e7;border-left:6px solid var(--green)}
+#fb.no{display:block;background:#fde2df;border-left:6px solid var(--red)}
+#fb.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.btn{font:inherit;font-weight:800;font-size:clamp(18px,2.2vw,22px);padding:16px 28px;min-height:60px;border:0;border-radius:16px;background:linear-gradient(135deg,#1e6fd9,#17a0c9);color:#fff;cursor:pointer;box-shadow:0 6px 18px rgba(30,111,217,.4);transition:transform .15s,opacity .2s}
+.btn:hover:not(:disabled){transform:translateY(-2px)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.alt{background:#fff;color:var(--blue);box-shadow:none;border:2px solid var(--blue)}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid #ffb400;outline-offset:2px}
+.act{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+#end{text-align:center}
+#end h2{font-size:clamp(28px,5vw,46px);font-weight:800;margin-bottom:6px}
+#end p.sub{font-size:clamp(16px,2.4vw,22px);margin-bottom:16px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+.stats div{background:rgba(255,255,255,.85);border-radius:14px;padding:10px;font-weight:600}
+.stats b{display:block;font-size:26px}
+.act.c{justify-content:center}
+#more{display:none;text-align:left;margin-top:16px;font-size:16px;line-height:1.7}
+#more li{margin-left:20px;margin-bottom:4px}
+.hide{display:none!important}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body data-s="0">
+<div id="sky"></div><div id="sun"></div>
+<div id="city"></div><div id="road"></div><div id="car">🚗</div>
+<div id="water"></div><div id="rain"></div><div id="leaves"></div>
+
+<div id="ui">
+  <header class="glass"><h1>🌆 กรุงเทพฯ จะรอดไหม?</h1><div id="prog">ข้อ 1/10</div></header>
+  <div class="mid">
+    <main class="glass">
+      <div id="game">
+        <div id="q"></div>
+        <div id="opts"></div>
+        <div id="fb"></div>
+        <div class="act"><button class="btn" id="confirm" disabled>ยืนยันคำตอบ</button><button class="btn hide" id="next">คำถามถัดไป</button></div>
+      </div>
+      <div id="end" class="hide">
+        <h2 id="et"></h2><p class="sub" id="es"></p>
+        <div class="stats"><div>คะแนน<b id="sc"></b></div><div>ระดับน้ำ<b id="sw"></b></div><div>ตอบถูก<b id="sr"></b></div><div>ตอบผิด<b id="sx"></b></div></div>
+        <div class="act c"><button class="btn" id="again">เล่นอีกครั้ง</button><button class="btn alt" id="learn">เรียนรู้เพิ่มเติม</button></div>
+        <ul id="more"></ul>
+      </div>
+    </main>
+    <aside id="meter" class="glass"><small>WATER LEVEL</small><div class="bar"><div id="fill"></div></div><div id="pct">0%</div><div id="stage" style="font-size:14px;margin-top:4px"></div></aside>
+  </div>
+</div>
+
+<script>
+(function(){
+var Q=[
+{t:"ฝนตกหนัก",q:"ฝนตกหนักในกรุงเทพฯ ทำให้น้ำท่วมได้เพราะอะไรเป็นหลัก?",o:["ฝนตกมากกว่าที่ระบบระบายน้ำรับไหวในเวลาสั้น ๆ","ฝนทำให้แม่น้ำเปลี่ยนทิศ","น้ำฝนเป็นกรดจึงกัดท่อ","ฝนทำให้แผ่นดินยกตัวสูงขึ้น"],a:0,e:"ฝนที่ตกหนักในเวลาสั้น ๆ ทำให้ปริมาณน้ำมากกว่าความสามารถในการระบายของท่อและคลอง"},
+{t:"น้ำทะเลหนุนสูง",q:"“น้ำทะเลหนุน” ส่งผลให้กรุงเทพฯ ท่วมอย่างไร?",o:["ทำให้ฝนตกมากขึ้น","น้ำทะเลดันน้ำในแม่น้ำเจ้าพระยา ทำให้ระบายลงทะเลช้าลง","ทำให้ท่อระบายน้ำแตก","ทำให้น้ำประปาเค็มเท่านั้น"],a:1,e:"เมื่อน้ำทะเลสูง น้ำจากเมืองและแม่น้ำระบายออกได้ช้า จึงเอ่อล้นและท่วมขัง"},
+{t:"พื้นที่ลุ่มต่ำ",q:"ข้อใดอธิบายภูมิประเทศของกรุงเทพฯ ได้ถูกต้อง?",o:["เป็นภูเขาสูงชัน","เป็นที่ราบลุ่มต่ำ สูงจากระดับน้ำทะเลเพียงประมาณ 1–2 เมตร","เป็นที่ราบสูงแห้งแล้ง","เป็นเกาะกลางทะเล"],a:1,e:"กรุงเทพฯ อยู่บนที่ราบลุ่มน้ำเจ้าพระยา ความลาดชันน้อย น้ำจึงไหลออกช้าและท่วมขังง่าย"},
+{t:"ระบบระบายน้ำ",q:"ระบบระบายน้ำของกรุงเทพฯ มีข้อจำกัดสำคัญข้อใด?",o:["ไม่มีท่อระบายน้ำเลย","รองรับฝนได้จำกัด และบางพื้นที่ต้องพึ่งการสูบน้ำ","ระบายน้ำได้ไม่จำกัดทุกกรณี","ท่อทุกท่อใหญ่เท่ากัน"],a:1,e:"ท่อและคลองออกแบบตามปริมาณฝนระดับหนึ่ง เมื่อฝนเกินความสามารถ น้ำจึงท่วมขัง"},
+{t:"ท่ออุดตันจากขยะ",q:"การทิ้งขยะลงท่อและคูคลองส่งผลอย่างไร?",o:["ช่วยให้น้ำไหลเร็วขึ้น","ไม่มีผลต่อน้ำท่วม","ขยะอุดตันทางน้ำ ทำให้น้ำระบายช้าลง","ทำให้น้ำทะเลลดลง"],a:2,e:"ถุงพลาสติก โฟม และเศษอาหารสะสมจนอุดตัน ทำให้น้ำระบายไม่ทัน"},
+{t:"พื้นที่ซึมน้ำลดลง",q:"เหตุใดการลดลงของพื้นที่สีเขียวจึงเพิ่มความเสี่ยงน้ำท่วม?",o:["ต้นไม้ปล่อยน้ำเพิ่ม","พื้นดินซึมน้ำได้น้อยลง น้ำฝนจึงไหลลงท่อพร้อมกันเป็นจำนวนมาก","พื้นคอนกรีตดูดน้ำได้ดีกว่า","พื้นที่สีเขียวทำให้ฝนตกน้อยลง"],a:1,e:"ดินและต้นไม้ช่วยชะลอและดูดซับน้ำ เมื่อเป็นพื้นคอนกรีต น้ำจึงไหลบ่าเร็วและมาก"},
+{t:"การขยายตัวของเมือง",q:"การก่อสร้างและขยายตัวของเมืองส่งผลต่อน้ำท่วมอย่างไร?",o:["ถมที่และปิดกั้นทางน้ำเดิม ทำให้น้ำไหลผ่านยากขึ้น","ทำให้แผ่นดินต่ำลงเสมอ","ทำให้ฝนตกน้อยลง","ไม่มีผลเลย"],a:0,e:"การถมคลอง สร้างถนนและอาคารขวางทางน้ำ ทำให้เส้นทางไหลของน้ำเปลี่ยนไปและติดขัด"},
+{t:"น้ำจากพื้นที่รอบกรุงเทพฯ",q:"“น้ำเหนือ” ที่ไหลลงมาส่งผลต่อกรุงเทพฯ อย่างไร?",o:["ไม่เกี่ยวข้อง เพราะกรุงเทพฯ ไม่มีแม่น้ำ","น้ำจากลุ่มน้ำตอนบนไหลผ่านลงสู่ทะเล ทำให้ระดับน้ำในแม่น้ำและคลองสูงขึ้น","ช่วยลดน้ำท่วมทุกครั้ง","ทำให้น้ำทะเลลดลง"],a:1,e:"เมื่อมีน้ำเหนือปริมาณมาก ประกอบกับฝนและน้ำทะเลหนุน ระดับน้ำจะสูงและท่วมได้"},
+{t:"การเปลี่ยนแปลงสภาพภูมิอากาศ",q:"การเปลี่ยนแปลงสภาพภูมิอากาศเพิ่มความเสี่ยงน้ำท่วมในกรุงเทพฯ อย่างไร?",o:["ทำให้ฝนตกน้อยลงเสมอ","ทำให้ระดับน้ำทะเลสูงขึ้นและฝนสุดขั้วรุนแรงบ่อยขึ้น","ทำให้แม่น้ำเจ้าพระยาแห้ง","ทำให้กรุงเทพฯ สูงขึ้น"],a:1,e:"น้ำทะเลที่สูงขึ้นและฝนหนักรุนแรงขึ้น เพิ่มโอกาสเกิดน้ำท่วมขังและน้ำท่วมซ้ำ"},
+{t:"ปัจจัยหลายอย่างพร้อมกัน",q:"ข้อใดอธิบายสาเหตุน้ำท่วมกรุงเทพฯ ได้ถูกต้องที่สุด?",o:["เกิดจากฝนอย่างเดียว","เกิดจากขยะอย่างเดียว","เกิดจากหลายปัจจัยรวมกัน เช่น ฝน น้ำทะเลหนุน ที่ลุ่มต่ำ และการระบายน้ำ","เกิดจากภัยพิบัติที่ป้องกันไม่ได้เลย"],a:2,e:"น้ำท่วมมักเกิดจากหลายปัจจัยซ้อนกัน และหลายอย่างเราช่วยกันลดได้"}
+];
+var $=function(i){return document.getElementById(i)};
+var idx,right,wrong,water,sel,answered,tmr;
+
+// สร้างฉากเมือง
+var city=$('city'),seed=7;
+function rnd(){seed=(seed*9301+49297)%233280;return seed/233280}
+for(var i=0;i<14;i++){var b=document.createElement('div');b.className='b';b.style.height=(25+rnd()*70)+'%';b.style.opacity=.75+rnd()*.25;
+ if(i%3==1){var t=document.createElement('span');t.className='tree';t.textContent='🌳';b.appendChild(t);}
+ city.appendChild(b);}
+for(var j=0;j<3;j++){var tr=document.createElement('span');tr.className='tree';}
+
+function stageOf(w){return w<=20?0:w<=40?1:w<=60?2:w<=80?3:4}
+var names=["เมืองปกติ แดดสดใส","เริ่มมีน้ำขังตามถนน","น้ำท่วมถนน รถได้รับผลกระทบ","น้ำถึงชุมชนและชั้นล่างอาคาร","ท่วมอย่างรุนแรง"];
+function setWater(w){
+ water=Math.max(0,Math.min(100,w));
+ $('fill').style.width=water+'%';$('pct').textContent=water+'%';
+ $('water').style.height=(water*0.85)+'vh';
+ var s=stageOf(water);document.body.setAttribute('data-s',s);$('stage').textContent=names[s];
+}
+function render(){
+ var d=Q[idx];
+ $('prog').textContent='ข้อ '+(idx+1)+'/10';
+ $('q').textContent=d.q;
+ var box=$('opts');box.innerHTML='';
+ d.o.forEach(function(txt,i){
+  var b=document.createElement('button');b.className='opt';b.type='button';b.textContent=String.fromCharCode(65+i)+'. '+txt;
+  b.onclick=function(){pick(i)};box.appendChild(b);
+ });
+ var fb=$('fb');fb.className='';fb.style.display='none';fb.textContent='';
+ $('confirm').disabled=true;$('confirm').classList.remove('hide');$('next').classList.add('hide');
+ sel=-1;answered=false;
+}
+function pick(i){
+ if(answered)return;sel=i;
+ var bs=$('opts').children;for(var k=0;k<bs.length;k++)bs[k].classList.toggle('sel',k===i);
+ $('confirm').disabled=false;
+}
+function confirmAns(){
+ if(answered||sel<0)return;answered=true;
+ var d=Q[idx],ok=sel===d.a,bs=$('opts').children;
+ for(var k=0;k<bs.length;k++){bs[k].disabled=true;bs[k].classList.remove('sel');if(k===d.a)bs[k].classList.add('ok');}
+ var fb=$('fb');
+ if(ok){right++;var drop=Math.min(water,2+Math.floor(Math.random()*4));setWater(water-drop);
+  fb.className='ok';fb.textContent='✅ ถูกต้อง! '+d.e+(drop?' (ระดับน้ำลดลง '+drop+'%)':'');}
+ else{wrong++;bs[sel].classList.add('no');setWater(water+10);
+  fb.className='no shake';fb.textContent='❌ ยังไม่ถูก คำตอบที่ถูกคือ “'+d.o[d.a]+'” '+d.e+' (ระดับน้ำ +10%)';
+  setTimeout(function(){fb.classList.remove('shake')},500);}
+ fb.style.display='block';
+ $('confirm').classList.add('hide');
+ var n=$('next');n.classList.remove('hide');n.textContent=idx===9?'ดูผลลัพธ์':'คำถามถัดไป';
+}
+function next(){if(idx<9){idx++;render();}else finish();}
+function finish(){
+ $('game').classList.add('hide');$('end').classList.remove('hide');$('prog').textContent='จบเกม';
+ $('sc').textContent=right+'/10';$('sw').textContent=water+'%';$('sr').textContent=right+' ข้อ';$('sx').textContent=wrong+' ข้อ';
+ var perfect=right===10;
+ if(perfect){$('et').textContent='กรุงเทพฯ ยังหายใจได้';$('es').textContent='ความเข้าใจเล็ก ๆ อาจสร้างการเปลี่ยนแปลงครั้งใหญ่';startLeaves();}
+ else if(water>=50){$('et').textContent='กรุงเทพฯ กำลังจมลง';$('es').textContent='ทุกคำตอบของคุณส่งผลต่อเมือง';}
+ else{$('et').textContent='กรุงเทพฯ ยังเสี่ยงอยู่';$('es').textContent='ทุกคำตอบของคุณส่งผลต่อเมือง ลองอีกครั้งเพื่อรักษาเมืองไว้ให้ได้!';}
+}
+function startLeaves(){
+ var L=$('leaves');L.innerHTML='';
+ for(var i=0;i<18;i++){var s=document.createElement('span');s.className='leaf';s.textContent=i%3?'🍃':'🌿';
+  s.style.left=Math.random()*100+'%';s.style.animationDuration=(6+Math.random()*6)+'s';s.style.animationDelay=(-Math.random()*8)+'s';L.appendChild(s);}
+}
+function restart(){
+ idx=0;right=0;wrong=0;sel=-1;answered=false;
+ $('leaves').innerHTML='';$('more').style.display='none';
+ $('end').classList.add('hide');$('game').classList.remove('hide');
+ setWater(0);render();
+}
+function learn(){
+ var m=$('more');
+ if(!m.innerHTML){m.innerHTML=Q.map(function(d){return '<li><b>'+d.t+':</b> '+d.e+'</li>'}).join('');}
+ m.style.display=m.style.display==='block'?'none':'block';
+}
+$('confirm').onclick=confirmAns;$('next').onclick=next;$('again').onclick=restart;$('learn').onclick=learn;
+restart();
+})();
+</script>
+</body>
+</html>
