@@ -2,206 +2,297 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<title>กรุงเทพฯ จะรอดไหม?</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;800&display=swap" rel="stylesheet">
+<title>WILL BANGKOK SINK?</title>
 <style>
-:root{--ink:#0d2238;--glass:rgba(255,255,255,.78);--blue:#1e6fd9;--green:#2fa36b;--red:#d9483b;--water:#2a7fc4}
-:root:not([data-theme="light"]){color-scheme:light}
-*{box-sizing:border-box;margin:0}
-html,body{height:100%;overflow:hidden}
-body{font-family:'Noto Sans Thai','Sarabun',Tahoma,sans-serif;color:var(--ink);background:#7cc4f0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-#sky{position:fixed;inset:0;transition:background 1.5s;background:linear-gradient(#5db8f5,#cdeeff 70%)}
-[data-s="1"] #sky{background:linear-gradient(#7fa9c9,#d5e3ea 70%)}
-[data-s="2"] #sky{background:linear-gradient(#5f7d96,#a9b9c4 70%)}
-[data-s="3"] #sky{background:linear-gradient(#3f5468,#7c8d9a 70%)}
-[data-s="4"] #sky{background:linear-gradient(#1c2836,#4a5a68 70%)}
-#sun{position:fixed;top:6vh;left:8vw;width:110px;height:110px;border-radius:50%;background:radial-gradient(#fff6b0,#ffd54a 60%,rgba(255,213,74,0) 71%);box-shadow:0 0 90px 30px rgba(255,220,90,.55);transition:opacity 1.5s;animation:pulse 4s ease-in-out infinite}
-[data-s="1"] #sun{opacity:.45}[data-s="2"] #sun,[data-s="3"] #sun,[data-s="4"] #sun{opacity:0}
-@keyframes pulse{50%{transform:scale(1.08)}}
-#rain{position:fixed;inset:0;opacity:0;transition:opacity 1.5s;pointer-events:none;background:repeating-linear-gradient(105deg,transparent 0 14px,rgba(200,225,245,.55) 14px 15px);background-size:140px 140px;animation:rain .5s linear infinite;z-index:5}
-[data-s="3"] #rain{opacity:.45}[data-s="4"] #rain{opacity:.9}
-@keyframes rain{to{background-position:-40px 140px}}
-#city{position:fixed;left:0;right:0;bottom:0;height:62vh;display:flex;align-items:flex-end;justify-content:space-around;padding-bottom:9vh}
-.b{width:6vw;min-width:34px;background:linear-gradient(#5a7690,#3b556e);border-radius:3px 3px 0 0;position:relative;transition:filter 1.5s;
-background-image:repeating-linear-gradient(0deg,transparent 0 14px,rgba(255,240,170,.55) 14px 20px),linear-gradient(#5a7690,#3b556e);background-size:60% 100%,100% 100%;background-repeat:repeat-y,no-repeat;background-position:center,0 0}
-[data-s="3"] .b,[data-s="4"] .b{filter:brightness(.6)}
-.tree{position:absolute;bottom:-1px;font-size:38px;transition:opacity 1.5s}
-[data-s="1"] .tree,[data-s="2"] .tree{opacity:.6}[data-s="3"] .tree,[data-s="4"] .tree{opacity:.25}
-#road{position:fixed;left:0;right:0;bottom:0;height:9vh;background:#4b5560;border-top:5px solid #8b959e}
-#road:after{content:"";position:absolute;left:0;right:0;top:45%;border-top:4px dashed #f2f2f2}
-#car{position:fixed;bottom:2.5vh;left:-90px;font-size:38px;animation:drive 14s linear infinite;transition:opacity 1s}
-[data-s="3"] #car,[data-s="4"] #car{animation-play-state:paused;opacity:.9}
-@keyframes drive{to{left:105vw}}
-#water{position:fixed;left:0;right:0;bottom:0;height:0;background:linear-gradient(rgba(60,140,200,.78),rgba(25,85,140,.92));transition:height 1.8s cubic-bezier(.3,.8,.3,1);z-index:4}
-#water:before{content:"";position:absolute;left:0;right:0;top:-14px;height:16px;background:radial-gradient(circle at 12px 16px,transparent 11px,rgba(60,140,200,.78) 12px) 0 0/24px 16px repeat-x;animation:wave 3s linear infinite}
-@keyframes wave{to{background-position:24px 0}}
-#leaves{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:6}
-.leaf{position:absolute;top:-30px;font-size:22px;animation:fall linear infinite}
-@keyframes fall{to{transform:translateY(105vh) rotate(360deg)}}
-#ui{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;padding:12px;gap:10px;overflow-y:auto}
-.glass{background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.7);border-radius:20px;box-shadow:0 8px 30px rgba(10,40,80,.18)}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;gap:12px}
-h1{font-size:clamp(18px,3.2vw,28px);font-weight:800}
-#prog{font-weight:600;white-space:nowrap}
-.mid{display:flex;gap:12px;flex:1;align-items:flex-start;flex-wrap:wrap}
-main{flex:1 1 380px;padding:18px 22px;min-width:0}
-#meter{flex:0 0 200px;padding:14px 16px;margin-left:auto}
-@media(max-width:700px){#meter{flex:1 1 100%;order:-1}}
-#meter small{font-weight:800;letter-spacing:.05em}
-.bar{height:22px;border-radius:12px;background:rgba(13,34,56,.15);overflow:hidden;margin:6px 0}
-#fill{height:100%;width:0;background:linear-gradient(90deg,#39b26d,#e8b63a,#d9483b);background-size:200px 100%;transition:width 1.6s cubic-bezier(.3,.8,.3,1)}
-#pct{font-size:26px;font-weight:800}
-#q{font-size:clamp(18px,2.6vw,25px);font-weight:800;line-height:1.5;margin-bottom:14px}
-.opt{display:block;width:100%;text-align:left;font:inherit;font-size:clamp(16px,2vw,20px);padding:14px 16px;margin-bottom:10px;border-radius:14px;border:2px solid rgba(30,111,217,.25);background:#fff;color:var(--ink);cursor:pointer;min-height:56px;transition:transform .15s,border-color .2s,background .3s}
-.opt:hover:not(:disabled){transform:translateX(4px);border-color:var(--blue)}
-.opt.sel{border-color:var(--blue);background:#e4f0ff}
-.opt.ok{border-color:var(--green);background:#dbf5e7}
-.opt.no{border-color:var(--red);background:#fde2df}
-.opt:disabled{cursor:default}
-#fb{display:none;padding:12px 14px;border-radius:14px;margin:4px 0 12px;font-size:clamp(15px,1.9vw,18px);line-height:1.6}
-#fb.ok{display:block;background:#dbf5e7;border-left:6px solid var(--green)}
-#fb.no{display:block;background:#fde2df;border-left:6px solid var(--red)}
-#fb.shake{animation:shake .4s}
-@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.btn{font:inherit;font-weight:800;font-size:clamp(18px,2.2vw,22px);padding:16px 28px;min-height:60px;border:0;border-radius:16px;background:linear-gradient(135deg,#1e6fd9,#17a0c9);color:#fff;cursor:pointer;box-shadow:0 6px 18px rgba(30,111,217,.4);transition:transform .15s,opacity .2s}
-.btn:hover:not(:disabled){transform:translateY(-2px)}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.btn.alt{background:#fff;color:var(--blue);box-shadow:none;border:2px solid var(--blue)}
-.btn:focus-visible,.opt:focus-visible{outline:3px solid #ffb400;outline-offset:2px}
-.act{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
-#end{text-align:center}
-#end h2{font-size:clamp(28px,5vw,46px);font-weight:800;margin-bottom:6px}
-#end p.sub{font-size:clamp(16px,2.4vw,22px);margin-bottom:16px}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
-.stats div{background:rgba(255,255,255,.85);border-radius:14px;padding:10px;font-weight:600}
-.stats b{display:block;font-size:26px}
-.act.c{justify-content:center}
-#more{display:none;text-align:left;margin-top:16px;font-size:16px;line-height:1.7}
-#more li{margin-left:20px;margin-bottom:4px}
-.hide{display:none!important}
-@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#000;overflow:hidden;color:#fff;font-family:'Noto Sans Thai','Sarabun',system-ui,-apple-system,'Segoe UI',sans-serif}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+.glass{background:rgba(12,18,26,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.22);border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.lab{font-size:11px;letter-spacing:.22em;opacity:.8}
+.scr{position:fixed;inset:0;transition:opacity 1.2s}
+.hide{opacity:0;pointer-events:none}
+.tf{font-family:Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif;font-weight:400}
+#intro{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;text-shadow:0 4px 40px rgba(0,0,0,.6)}
+#intro h1{margin:0;font-size:clamp(70px,24vw,230px);letter-spacing:.03em;line-height:1;transform:scaleY(1.25);transform-origin:center}
+#intro h2{margin:22px 0 6px;font-size:clamp(20px,5vw,36px);letter-spacing:.42em;font-weight:300;padding-left:.42em}
+#intro p{margin:0 0 30px;font-size:12px;letter-spacing:.24em;opacity:.85;line-height:1.9}
+.btn{font:inherit;font-size:14px;letter-spacing:.24em;color:#fff;background:rgba(109,180,255,.22);border:1px solid rgba(255,255,255,.7);border-radius:99px;padding:14px 38px;cursor:pointer;backdrop-filter:blur(8px);transition:background .3s}
+.btn:hover{background:rgba(109,180,255,.42)}
+.btn:disabled{opacity:.4;cursor:default}
+#top{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 12px);display:flex;justify-content:space-between;padding:0 16px;align-items:flex-start;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+#top .b{font-size:20px;letter-spacing:.2em}
+#wl{font-size:26px;letter-spacing:.06em;text-align:right;line-height:1.1}
+#qcard{position:absolute;top:calc(env(safe-area-inset-top,0px) + 66px);left:50%;transform:translateX(-50%);width:min(720px,calc(100% - 28px));padding:14px 18px}
+#qt{font-size:clamp(16px,4.2vw,22px);line-height:1.5;margin:0}
+#ex{font-size:13px;line-height:1.5;margin:0;max-height:0;overflow:hidden;transition:max-height .6s,margin .6s;color:#cfe6ff}
+#ex.on{max-height:120px;margin-top:10px}
+#bot{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 12px);width:min(720px,calc(100% - 28px));display:flex;flex-direction:column;gap:8px;align-items:center}
+#opts{display:grid;grid-template-columns:1fr;gap:7px;width:100%}
+@media(min-width:760px){#opts{grid-template-columns:1fr 1fr}}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;font:inherit;font-size:clamp(13px,3.6vw,15px);line-height:1.4;color:#fff;padding:10px 14px;cursor:pointer;background:rgba(12,18,26,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.25);border-radius:12px;transition:all .25s}
+.opt b{flex:none;width:24px;height:24px;border:1px solid rgba(255,255,255,.5);border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:400}
+.opt.sel{border-color:#6db4ff;background:rgba(60,120,200,.4)}
+.opt.ok{border-color:#7fe0a8;background:rgba(40,130,90,.5)}
+.opt.no{border-color:#ff8a80;background:rgba(160,50,50,.5)}
+#end{position:absolute;left:0;right:0;text-align:center;padding:0 16px;text-shadow:0 3px 30px rgba(0,0,0,.8)}
+#end>*{opacity:0;transition:opacity 2s}
+#end.on>*{opacity:1}
+#e1{font-size:clamp(70px,24vw,230px);letter-spacing:.03em;line-height:1;transform:scaleY(1.2);display:none}
+#e2{font-size:clamp(28px,8.5vw,64px);letter-spacing:.06em;line-height:1.1;transition-delay:.3s!important}
+#e3{font-size:12px;letter-spacing:.24em;margin-top:14px;opacity:.85;transition-delay:1s!important}
+#e4{font-size:14px;letter-spacing:.14em;line-height:1.9;margin:16px 0 20px;transition-delay:1.6s!important}
+#again{transition-delay:2.2s!important;pointer-events:auto}
 </style>
 </head>
-<body data-s="0">
-<div id="sky"></div><div id="sun"></div>
-<div id="city"></div><div id="road"></div><div id="car">🚗</div>
-<div id="water"></div><div id="rain"></div><div id="leaves"></div>
+<body>
+<canvas id="c"></canvas>
 
-<div id="ui">
-  <header class="glass"><h1>🌆 กรุงเทพฯ จะรอดไหม?</h1><div id="prog">ข้อ 1/10</div></header>
-  <div class="mid">
-    <main class="glass">
-      <div id="game">
-        <div id="q"></div>
-        <div id="opts"></div>
-        <div id="fb"></div>
-        <div class="act"><button class="btn" id="confirm" disabled>ยืนยันคำตอบ</button><button class="btn hide" id="next">คำถามถัดไป</button></div>
-      </div>
-      <div id="end" class="hide">
-        <h2 id="et"></h2><p class="sub" id="es"></p>
-        <div class="stats"><div>คะแนน<b id="sc"></b></div><div>ระดับน้ำ<b id="sw"></b></div><div>ตอบถูก<b id="sr"></b></div><div>ตอบผิด<b id="sx"></b></div></div>
-        <div class="act c"><button class="btn" id="again">เล่นอีกครั้ง</button><button class="btn alt" id="learn">เรียนรู้เพิ่มเติม</button></div>
-        <ul id="more"></ul>
-      </div>
-    </main>
-    <aside id="meter" class="glass"><small>WATER LEVEL</small><div class="bar"><div id="fill"></div></div><div id="pct">0%</div><div id="stage" style="font-size:14px;margin-top:4px"></div></aside>
+<div id="intro" class="scr">
+  <h1 class="tf">BANGKOK</h1>
+  <h2>WILL IT SINK?</h2>
+  <p>5 QUESTIONS.<br>ONE CITY.<br>YOUR CHOICES MATTER.</p>
+  <button class="btn" id="start">START</button>
+</div>
+
+<div id="quiz" class="scr hide">
+  <div id="top">
+    <div><div class="b tf">BANGKOK</div><div class="lab" id="qn">QUESTION 01 / 05</div></div>
+    <div><div class="lab">WATER LEVEL</div><div id="wl" class="tf">00%</div></div>
   </div>
+  <div id="qcard" class="glass"><p id="qt"></p><p id="ex"></p></div>
+  <div id="bot"><div id="opts"></div><button class="btn" id="confirm">CONFIRM ANSWER</button></div>
+</div>
+
+<div id="end" class="scr" style="pointer-events:none">
+  <div id="e1" class="tf">BANGKOK</div>
+  <div id="e2" class="tf"></div>
+  <div id="e3"></div>
+  <div id="e4"></div>
+  <button class="btn" id="again"></button>
 </div>
 
 <script>
-(function(){
-var Q=[
-{t:"ฝนตกหนัก",q:"ฝนตกหนักในกรุงเทพฯ ทำให้น้ำท่วมได้เพราะอะไรเป็นหลัก?",o:["ฝนตกมากกว่าที่ระบบระบายน้ำรับไหวในเวลาสั้น ๆ","ฝนทำให้แม่น้ำเปลี่ยนทิศ","น้ำฝนเป็นกรดจึงกัดท่อ","ฝนทำให้แผ่นดินยกตัวสูงขึ้น"],a:0,e:"ฝนที่ตกหนักในเวลาสั้น ๆ ทำให้ปริมาณน้ำมากกว่าความสามารถในการระบายของท่อและคลอง"},
-{t:"น้ำทะเลหนุนสูง",q:"“น้ำทะเลหนุน” ส่งผลให้กรุงเทพฯ ท่วมอย่างไร?",o:["ทำให้ฝนตกมากขึ้น","น้ำทะเลดันน้ำในแม่น้ำเจ้าพระยา ทำให้ระบายลงทะเลช้าลง","ทำให้ท่อระบายน้ำแตก","ทำให้น้ำประปาเค็มเท่านั้น"],a:1,e:"เมื่อน้ำทะเลสูง น้ำจากเมืองและแม่น้ำระบายออกได้ช้า จึงเอ่อล้นและท่วมขัง"},
-{t:"พื้นที่ลุ่มต่ำ",q:"ข้อใดอธิบายภูมิประเทศของกรุงเทพฯ ได้ถูกต้อง?",o:["เป็นภูเขาสูงชัน","เป็นที่ราบลุ่มต่ำ สูงจากระดับน้ำทะเลเพียงประมาณ 1–2 เมตร","เป็นที่ราบสูงแห้งแล้ง","เป็นเกาะกลางทะเล"],a:1,e:"กรุงเทพฯ อยู่บนที่ราบลุ่มน้ำเจ้าพระยา ความลาดชันน้อย น้ำจึงไหลออกช้าและท่วมขังง่าย"},
-{t:"ระบบระบายน้ำ",q:"ระบบระบายน้ำของกรุงเทพฯ มีข้อจำกัดสำคัญข้อใด?",o:["ไม่มีท่อระบายน้ำเลย","รองรับฝนได้จำกัด และบางพื้นที่ต้องพึ่งการสูบน้ำ","ระบายน้ำได้ไม่จำกัดทุกกรณี","ท่อทุกท่อใหญ่เท่ากัน"],a:1,e:"ท่อและคลองออกแบบตามปริมาณฝนระดับหนึ่ง เมื่อฝนเกินความสามารถ น้ำจึงท่วมขัง"},
-{t:"ท่ออุดตันจากขยะ",q:"การทิ้งขยะลงท่อและคูคลองส่งผลอย่างไร?",o:["ช่วยให้น้ำไหลเร็วขึ้น","ไม่มีผลต่อน้ำท่วม","ขยะอุดตันทางน้ำ ทำให้น้ำระบายช้าลง","ทำให้น้ำทะเลลดลง"],a:2,e:"ถุงพลาสติก โฟม และเศษอาหารสะสมจนอุดตัน ทำให้น้ำระบายไม่ทัน"},
-{t:"พื้นที่ซึมน้ำลดลง",q:"เหตุใดการลดลงของพื้นที่สีเขียวจึงเพิ่มความเสี่ยงน้ำท่วม?",o:["ต้นไม้ปล่อยน้ำเพิ่ม","พื้นดินซึมน้ำได้น้อยลง น้ำฝนจึงไหลลงท่อพร้อมกันเป็นจำนวนมาก","พื้นคอนกรีตดูดน้ำได้ดีกว่า","พื้นที่สีเขียวทำให้ฝนตกน้อยลง"],a:1,e:"ดินและต้นไม้ช่วยชะลอและดูดซับน้ำ เมื่อเป็นพื้นคอนกรีต น้ำจึงไหลบ่าเร็วและมาก"},
-{t:"การขยายตัวของเมือง",q:"การก่อสร้างและขยายตัวของเมืองส่งผลต่อน้ำท่วมอย่างไร?",o:["ถมที่และปิดกั้นทางน้ำเดิม ทำให้น้ำไหลผ่านยากขึ้น","ทำให้แผ่นดินต่ำลงเสมอ","ทำให้ฝนตกน้อยลง","ไม่มีผลเลย"],a:0,e:"การถมคลอง สร้างถนนและอาคารขวางทางน้ำ ทำให้เส้นทางไหลของน้ำเปลี่ยนไปและติดขัด"},
-{t:"น้ำจากพื้นที่รอบกรุงเทพฯ",q:"“น้ำเหนือ” ที่ไหลลงมาส่งผลต่อกรุงเทพฯ อย่างไร?",o:["ไม่เกี่ยวข้อง เพราะกรุงเทพฯ ไม่มีแม่น้ำ","น้ำจากลุ่มน้ำตอนบนไหลผ่านลงสู่ทะเล ทำให้ระดับน้ำในแม่น้ำและคลองสูงขึ้น","ช่วยลดน้ำท่วมทุกครั้ง","ทำให้น้ำทะเลลดลง"],a:1,e:"เมื่อมีน้ำเหนือปริมาณมาก ประกอบกับฝนและน้ำทะเลหนุน ระดับน้ำจะสูงและท่วมได้"},
-{t:"การเปลี่ยนแปลงสภาพภูมิอากาศ",q:"การเปลี่ยนแปลงสภาพภูมิอากาศเพิ่มความเสี่ยงน้ำท่วมในกรุงเทพฯ อย่างไร?",o:["ทำให้ฝนตกน้อยลงเสมอ","ทำให้ระดับน้ำทะเลสูงขึ้นและฝนสุดขั้วรุนแรงบ่อยขึ้น","ทำให้แม่น้ำเจ้าพระยาแห้ง","ทำให้กรุงเทพฯ สูงขึ้น"],a:1,e:"น้ำทะเลที่สูงขึ้นและฝนหนักรุนแรงขึ้น เพิ่มโอกาสเกิดน้ำท่วมขังและน้ำท่วมซ้ำ"},
-{t:"ปัจจัยหลายอย่างพร้อมกัน",q:"ข้อใดอธิบายสาเหตุน้ำท่วมกรุงเทพฯ ได้ถูกต้องที่สุด?",o:["เกิดจากฝนอย่างเดียว","เกิดจากขยะอย่างเดียว","เกิดจากหลายปัจจัยรวมกัน เช่น ฝน น้ำทะเลหนุน ที่ลุ่มต่ำ และการระบายน้ำ","เกิดจากภัยพิบัติที่ป้องกันไม่ได้เลย"],a:2,e:"น้ำท่วมมักเกิดจากหลายปัจจัยซ้อนกัน และหลายอย่างเราช่วยกันลดได้"}
+const $=id=>document.getElementById(id);
+const TF="Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif";
+const Q=[
+{q:'ทำไมพื้นที่ของกรุงเทพฯ จึงมีความเสี่ยงต่อน้ำท่วม?',o:['ตั้งอยู่บนที่สูงจึงรับน้ำฝนจากทุกทิศ','ตั้งอยู่บนที่ราบลุ่มปากแม่น้ำเจ้าพระยา พื้นที่ต่ำและราบมาก','ไม่มีแม่น้ำหรือคลองอยู่ในเมือง','อยู่ห่างทะเลมากจนน้ำไม่มีที่ไป'],c:1,e:'กรุงเทพฯ สูงจากระดับน้ำทะเลเพียงไม่กี่เมตร และบางพื้นที่ยังทรุดตัวจากการสูบน้ำบาดาล'},
+{q:'ฝนตกหนักส่งผลต่อการระบายน้ำในกรุงเทพฯ อย่างไร?',o:['ฝนตกหนักในเวลาสั้น ๆ ทำให้น้ำมากกว่าที่ท่อและคลองจะระบายทัน','ยิ่งฝนตกหนัก ท่อยิ่งระบายน้ำได้เร็วขึ้น','ฝนไม่มีผล เพราะพื้นถนนดูดซับน้ำได้หมด','ฝนตกหนักทำให้ระดับน้ำทะเลลดลงทันที'],c:0,e:'ท่อระบายน้ำมีขีดจำกัด เมื่อน้ำฝนมาเร็วกว่าที่ระบายได้ น้ำจึงท่วมขังบนถนน'},
+{q:'น้ำทะเลหนุนสูงเกี่ยวข้องกับน้ำท่วมกรุงเทพฯ อย่างไร?',o:['ช่วยดูดน้ำท่วมออกจากเมืองให้เร็วขึ้น','ทำให้ฝนหยุดตกเร็วกว่าเดิม','ทำให้น้ำในแม่น้ำและคลองไหลออกสู่ทะเลได้ช้าลง น้ำจึงค้างในเมืองนานขึ้น','เกิดเฉพาะกลางทะเลและไม่เกี่ยวกับแม่น้ำ'],c:2,e:'เมื่อระดับน้ำที่ปากแม่น้ำสูง น้ำจากเมืองจึงระบายลงทะเลได้ยากขึ้น'},
+{q:'พื้นที่สีเขียวและพื้นที่ซึมน้ำที่ลดลงส่งผลอย่างไร?',o:['น้ำฝนซึมลงดินได้มากขึ้น','ไม่เกี่ยวข้อง เพราะคอนกรีตช่วยกักน้ำไว้ใต้ดิน','ทำให้ฝนตกน้อยลงจนไม่เกิดน้ำท่วม','น้ำฝนซึมลงดินไม่ได้ จึงไหลลงท่อและคลองพร้อมกันในปริมาณมาก'],c:3,e:'ถนนและอาคารคอนกรีตไม่ซับน้ำ น้ำฝนเกือบทั้งหมดจึงไหลไปรวมกันในระบบระบายน้ำ'},
+{q:'ระบบระบายน้ำ ขยะ และการขยายตัวของเมืองเกี่ยวข้องกับน้ำท่วมอย่างไร?',o:['ขยะช่วยกรองน้ำให้ไหลเร็วขึ้น','ขยะอุดตันท่อและคลอง อีกทั้งเมืองขยายตัวเร็วกว่าการพัฒนาระบบระบายน้ำ','เมืองขยายตัวทำให้ท่อระบายน้ำใหญ่ขึ้นเอง','ระบบระบายน้ำไม่มีผล ถ้ามีถนนมากพอ'],c:1,e:'ขยะอุดตันทำให้น้ำระบายไม่ได้ และเมืองที่โตเร็วทำให้ท่อเดิมรับน้ำไม่ไหว'}
 ];
-var $=function(i){return document.getElementById(i)};
-var idx,right,wrong,water,sel,answered,tmr;
 
-// สร้างฉากเมือง
-var city=$('city'),seed=7;
-function rnd(){seed=(seed*9301+49297)%233280;return seed/233280}
-for(var i=0;i<14;i++){var b=document.createElement('div');b.className='b';b.style.height=(25+rnd()*70)+'%';b.style.opacity=.75+rnd()*.25;
- if(i%3==1){var t=document.createElement('span');t.className='tree';t.textContent='🌳';b.appendChild(t);}
- city.appendChild(b);}
-for(var j=0;j<3;j++){var tr=document.createElement('span');tr.className='tree';}
+const cv=$('c'),ctx=cv.getContext('2d'),sc=document.createElement('canvas'),sx=sc.getContext('2d'),cc=document.createElement('canvas'),cg=cc.getContext('2d');
+let W,H,dpr,tsz,tas,stk,cars=[],train={x:0},ripples=[];
+let phase='intro',qi=0,sel=-1,locked=false,correct=0,tw=0,dw=0,T=0,last=0,tEnd=0,kind='',shake=0,endOn=false;
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const mix=(a,b,k)=>`rgb(${a.map((v,i)=>(v+(b[i]-v)*k)|0)})`;
+const rnd=s=>()=>(s=(s*16807)%2147483647)/2147483647;
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const YB=.72;
 
-function stageOf(w){return w<=20?0:w<=40?1:w<=60?2:w<=80?3:4}
-var names=["เมืองปกติ แดดสดใส","เริ่มมีน้ำขังตามถนน","น้ำท่วมถนน รถได้รับผลกระทบ","น้ำถึงชุมชนและชั้นล่างอาคาร","ท่วมอย่างรุนแรง"];
-function setWater(w){
- water=Math.max(0,Math.min(100,w));
- $('fill').style.width=water+'%';$('pct').textContent=water+'%';
- $('water').style.height=(water*0.85)+'vh';
- var s=stageOf(water);document.body.setAttribute('data-s',s);$('stage').textContent=names[s];
+function build(){
+  dpr=Math.min(devicePixelRatio||1,2);
+  W=cv.width=sc.width=cc.width=Math.round(innerWidth*dpr);
+  H=cv.height=sc.height=cc.height=Math.round(innerHeight*dpr);
+  sx.font=`100px ${TF}`;
+  tsz=100*W*.9/sx.measureText('BANGKOK').width;
+  sx.font=`${tsz}px ${TF}`;
+  tas=sx.measureText('BANGKOK').actualBoundingBoxAscent||tsz*.72;
+  stk=clamp(H*.3/tas,.5,3.2);
+  buildCity();
+  const r=rnd(9);cars=[];
+  const cols=['#c9c9cc','#b32424','#222831','#e8e2d0','#2c5d8f','#e0a21f','#f2f2f2'];
+  for(let i=0;i<9;i++){const near=i%2;cars.push({x:r()*W,near,s:W*(near?.13:.085),col:cols[i%cols.length],v:(.5+r()*.5)*(near?1:.7)})}
+  train.x=W*.3;
 }
-function render(){
- var d=Q[idx];
- $('prog').textContent='ข้อ '+(idx+1)+'/10';
- $('q').textContent=d.q;
- var box=$('opts');box.innerHTML='';
- d.o.forEach(function(txt,i){
-  var b=document.createElement('button');b.className='opt';b.type='button';b.textContent=String.fromCharCode(65+i)+'. '+txt;
-  b.onclick=function(){pick(i)};box.appendChild(b);
- });
- var fb=$('fb');fb.className='';fb.style.display='none';fb.textContent='';
- $('confirm').disabled=true;$('confirm').classList.remove('hide');$('next').classList.add('hide');
- sel=-1;answered=false;
+
+function buildCity(){
+  const g=cg,r=rnd(42),yb=H*YB;
+  g.clearRect(0,0,W,H);
+  let x=0;
+  while(x<W){const w=(.02+r()*.04)*W,h=(.12+r()*.3)*H;g.fillStyle=`rgba(${125+r()*20|0},${135+r()*20|0},${155+r()*10|0},.55)`;g.fillRect(x,yb-h,w,h);x+=w*(.6+r()*.5)}
+  x=-10;
+  while(x<W){
+    const w=(.035+r()*.06)*W,h=(.14+r()*.34)*H,c=60+r()*40|0;
+    g.fillStyle=`rgb(${c},${c+10},${c+30})`;g.fillRect(x,yb-h,w,h);
+    if(r()<.5){g.fillRect(x+w*.2,yb-h-H*.03,w*.6,H*.03);if(r()<.5)g.fillRect(x+w*.5-dpr,yb-h-H*.08,2*dpr,H*.05)}
+    for(let wy=yb-h+6*dpr;wy<yb-10*dpr;wy+=9*dpr)for(let wx=x+4*dpr;wx<x+w-6*dpr;wx+=7*dpr)if(r()<.5){g.fillStyle=r()<.2?'rgba(255,220,160,.7)':'rgba(190,210,235,.25)';g.fillRect(wx,wy,3*dpr,4*dpr)}
+    x+=w+r()*.008*W;
+  }
+  x=0;
+  while(x<W){const w=(.05+r()*.06)*W,h=H*(.035+r()*.03),c=[[150,90,60],[190,170,130],[90,110,130],[170,60,50]][r()*4|0];
+    g.fillStyle=`rgb(${c})`;g.fillRect(x,yb-h,w,h);g.fillStyle='rgba(255,240,200,.75)';g.fillRect(x+w*.1,yb-h*.7,w*.5,h*.22);x+=w+2}
+  // expressway
+  g.fillStyle='#8a8d94';g.fillRect(0,H*.64,W,H*.018);g.fillStyle='#5d6066';g.fillRect(0,H*.658,W,H*.008);
+  for(let px=W*.05;px<W;px+=W*.28){g.fillStyle='#777a80';g.fillRect(px,H*.666,W*.016,yb-H*.666+H*.06)}
+  // trees
+  for(let i=0;i<26;i++){const tx=r()*W,ty=yb+H*.005,tr=W*(.018+r()*.02);g.fillStyle='rgb(28,58,38)';g.beginPath();g.arc(tx,ty-tr,tr,0,7);g.fill();g.fillStyle='rgba(90,140,70,.5)';g.beginPath();g.arc(tx+tr*.3,ty-tr*1.2,tr*.6,0,7);g.fill();g.fillStyle='#3a2c20';g.fillRect(tx-dpr,ty-tr*.3,2*dpr,tr*.4)}
+  // road
+  let gr=g.createLinearGradient(0,yb,0,H);gr.addColorStop(0,'#6a6c70');gr.addColorStop(.04,'#44474d');gr.addColorStop(1,'#25272c');
+  g.fillStyle=gr;g.fillRect(0,yb+H*.012,W,H);
+  g.fillStyle='#8f8b82';g.fillRect(0,yb,W,H*.014);
+  g.fillStyle='rgba(255,255,255,.7)';for(let dx=0;dx<W;dx+=W*.09)g.fillRect(dx,H*.855,W*.05,3*dpr);
+  // BTS viaduct
+  for(let px=W*.1;px<W;px+=W*.25){g.fillStyle='#9a9ca0';g.fillRect(px,H*.6,W*.02,H*.36);g.fillStyle='#7d8085';g.fillRect(px-W*.01,H*.585,W*.04,H*.02)}
+  g.fillStyle='#b6b8bc';g.fillRect(0,H*.575,W,H*.02);g.fillStyle='#6a6d72';g.fillRect(0,H*.595,W,H*.012);
+  // power lines
+  g.strokeStyle='rgba(15,15,18,.85)';g.fillStyle='#1a1a1e';g.lineWidth=1.5*dpr;
+  const poles=[.06,.46,.9];
+  poles.forEach(p=>{g.fillRect(W*p,H*.3,W*.007,H*.66);g.fillRect(W*p-W*.03,H*.34,W*.07,3*dpr)});
+  for(let i=0;i<poles.length-1;i++)for(let k=0;k<3;k++){const a=W*poles[i]+W*.003,b=W*poles[i+1]+W*.003,y=H*(.345+k*.03);g.beginPath();g.moveTo(a,y);g.quadraticCurveTo((a+b)/2,y+H*.07,b,y);g.stroke()}
+  gr=g.createLinearGradient(0,0,W,0);gr.addColorStop(0,'rgba(255,170,90,0)');gr.addColorStop(1,'rgba(255,160,80,.2)');
+  g.globalCompositeOperation='source-atop';g.fillStyle=gr;g.fillRect(0,0,W,H);g.globalCompositeOperation='source-over';
 }
-function pick(i){
- if(answered)return;sel=i;
- var bs=$('opts').children;for(var k=0;k<bs.length;k++)bs[k].classList.toggle('sel',k===i);
- $('confirm').disabled=false;
+
+function car(g,x,y,s,col,dir){
+  const h=s*.36;
+  g.fillStyle='rgba(0,0,0,.35)';g.fillRect(x,y-h*.05,s,h*.1);
+  g.fillStyle=col;g.fillRect(x,y-h*.62,s,h*.44);g.fillRect(x+s*.2,y-h,s*.55,h*.42);
+  g.fillStyle='rgba(20,30,45,.85)';g.fillRect(x+s*.25,y-h*.94,s*.45,h*.3);
+  g.fillStyle='#111';[.2,.8].forEach(k=>{g.beginPath();g.arc(x+s*k,y-h*.12,h*.17,0,7);g.fill()});
+  g.fillStyle=dir>0?'#ff3b30':'#fff2c0';g.fillRect(dir>0?x:x+s-s*.06,y-h*.5,s*.06,h*.12);
 }
-function confirmAns(){
- if(answered||sel<0)return;answered=true;
- var d=Q[idx],ok=sel===d.a,bs=$('opts').children;
- for(var k=0;k<bs.length;k++){bs[k].disabled=true;bs[k].classList.remove('sel');if(k===d.a)bs[k].classList.add('ok');}
- var fb=$('fb');
- if(ok){right++;var drop=Math.min(water,2+Math.floor(Math.random()*4));setWater(water-drop);
-  fb.className='ok';fb.textContent='✅ ถูกต้อง! '+d.e+(drop?' (ระดับน้ำลดลง '+drop+'%)':'');}
- else{wrong++;bs[sel].classList.add('no');setWater(water+10);
-  fb.className='no shake';fb.textContent='❌ ยังไม่ถูก คำตอบที่ถูกคือ “'+d.o[d.a]+'” '+d.e+' (ระดับน้ำ +10%)';
-  setTimeout(function(){fb.classList.remove('shake')},500);}
- fb.style.display='block';
- $('confirm').classList.add('hide');
- var n=$('next');n.classList.remove('hide');n.textContent=idx===9?'ดูผลลัพธ์':'คำถามถัดไป';
+
+function drawScene(dt,ta,lite){
+  const w=dw,yb=H*YB,run=clamp(1-w*2.3);
+  let g=sx.createLinearGradient(0,0,0,yb);
+  g.addColorStop(0,mix([84,132,196],[26,32,42],w));g.addColorStop(.6,mix([232,172,140],[64,72,82],w));g.addColorStop(1,mix([255,198,122],[100,108,114],w));
+  sx.fillStyle=g;sx.fillRect(0,0,W,H);
+  g=sx.createRadialGradient(W*.7,yb*.92,0,W*.7,yb*.92,W*.75);
+  g.addColorStop(0,`rgba(255,200,120,${.75*(1-w)})`);g.addColorStop(1,'rgba(255,170,100,0)');
+  sx.fillStyle=g;sx.fillRect(0,0,W,H);
+  if(w>.25){sx.fillStyle=`rgba(22,26,32,${(w-.25)*.6})`;for(let i=0;i<8;i++){sx.beginPath();sx.ellipse(((i*.17+T*.004)%1.3-.15)*W,H*(.06+(i%3)*.07),W*.3,H*.05,0,0,7);sx.fill()}}
+  sx.drawImage(cc,0,0);
+  cars.forEach(c=>{c.x+=(c.near?1:-1)*c.v*run*dt*W*.06;if(c.x>W+c.s)c.x=-c.s;if(c.x<-c.s)c.x=W;
+    car(sx,c.x,H*(c.near?.965:.815),c.s,c.col,c.near?1:-1)});
+  train.x+=W*.05*dt*clamp(1-w*1.4);if(train.x>W+W*.5)train.x=-W*.5;
+  for(let i=0;i<3;i++){const tx=train.x-i*(W*.17),ty=H*.575-H*.05;
+    sx.fillStyle='#dfe3e8';sx.fillRect(tx,ty,W*.165,H*.05);sx.fillStyle='#2b5fa0';sx.fillRect(tx,ty+H*.033,W*.165,H*.012);
+    sx.fillStyle='rgba(30,45,65,.85)';for(let k=0;k<5;k++)sx.fillRect(tx+W*.01+k*W*.03,ty+H*.008,W*.02,H*.018)}
+  sx.fillStyle=`rgba(50,64,78,${w*.5})`;sx.fillRect(0,0,W,H);
+  g=sx.createLinearGradient(0,yb-H*.3,0,yb+H*.05);g.addColorStop(0,'rgba(170,182,190,0)');g.addColorStop(.7,`rgba(170,182,190,${.06+.4*w})`);g.addColorStop(1,'rgba(170,182,190,0)');
+  sx.fillStyle=g;sx.fillRect(0,yb-H*.3,W,H*.35);
+  if(ta>0){
+    sx.save();sx.globalAlpha=ta;sx.translate(W/2,H*.24);sx.scale(1,stk);
+    sx.font=`${tsz}px ${TF}`;sx.textAlign='center';sx.textBaseline='alphabetic';
+    const k=1-w;g=sx.createLinearGradient(0,-tas/2,0,tas/2);
+    g.addColorStop(0,mix([225,236,244],[255,246,228],k));g.addColorStop(1,mix([130,150,165],[255,190,110],k));
+    sx.fillStyle=g;sx.shadowColor=mix([150,190,215],[255,180,100],k);sx.shadowBlur=30*dpr;
+    sx.fillText('BANGKOK',0,tas/2);sx.restore();
+  }
 }
-function next(){if(idx<9){idx++;render();}else finish();}
-function finish(){
- $('game').classList.add('hide');$('end').classList.remove('hide');$('prog').textContent='จบเกม';
- $('sc').textContent=right+'/10';$('sw').textContent=water+'%';$('sr').textContent=right+' ข้อ';$('sx').textContent=wrong+' ข้อ';
- var perfect=right===10;
- if(perfect){$('et').textContent='กรุงเทพฯ ยังหายใจได้';$('es').textContent='ความเข้าใจเล็ก ๆ อาจสร้างการเปลี่ยนแปลงครั้งใหญ่';startLeaves();}
- else if(water>=50){$('et').textContent='กรุงเทพฯ กำลังจมลง';$('es').textContent='ทุกคำตอบของคุณส่งผลต่อเมือง';}
- else{$('et').textContent='กรุงเทพฯ ยังเสี่ยงอยู่';$('es').textContent='ทุกคำตอบของคุณส่งผลต่อเมือง ลองอีกครั้งเพื่อรักษาเมืองไว้ให้ได้!';}
+
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt=Math.min(.05,(now-last)/1000||.016);last=now;T+=dt;
+  dw+=(tw-dw)*Math.min(1,dt*1.1);if(Math.abs(tw-dw)<.0006)dw=tw;
+  shake*=Math.pow(.04,dt);
+  const te=phase==='end'?(now-tEnd)/1000:0;
+  let s=1.06+.012*Math.sin(T*.1),ta=0,e=0,ci=T<3?.3*Math.exp(-T/1.4):0;
+  if(phase==='end'){
+    if(kind==='B'){s=1+.28*ease(clamp(te/14));e=ease(clamp((te-5)/7));ta=clamp((te-1.2)/2.5)*(1-clamp((e-.8)/.2))}
+    else{s=1+.45*(1-ease(clamp(te/6)));ta=clamp((te-3)/2.5)}
+    if(!endOn&&te>(kind==='B'?13:5.5)){endOn=true;$('end').classList.add('on')}
+  }
+  drawScene(dt,ta);
+  const wy=H*(1-.7*dw),wl=wy-e*(wy-H*.03);
+  ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  ctx.translate(W/2+Math.sin(T*.23)*W*.008,H/2+Math.cos(T*.17)*H*.004+shake*Math.sin(T*55)*4*dpr);
+  ctx.scale(s+ci,s+ci);ctx.translate(-W/2,-H/2);
+  const y0=Math.min(H,wl+Math.sin(T*1.1)*1.5*dpr);
+  ctx.drawImage(sc,0,0,W,y0,0,0,W,y0);
+  if(y0<H){
+    ctx.fillStyle='#2a2519';ctx.fillRect(0,y0,W,H-y0);
+    const st=2*dpr;
+    for(let y=y0;y<H;y+=st){
+      const d=y-y0,sy=y0-d-st;if(sy<0)break;
+      const amp=(1.2+Math.min(d*.015/dpr,6))*dpr,off=(Math.sin(d*.05/dpr-T*2.2)+.5*Math.sin(d*.13/dpr+T*1.3))*amp;
+      ctx.globalAlpha=.5;ctx.drawImage(sc,0,sy,W,st,off,y,W,st);
+      ctx.globalAlpha=.16;ctx.drawImage(sc,0,y,W,st,-off*.8,y,W,st);
+    }
+    ctx.globalAlpha=1;
+    const g=ctx.createLinearGradient(0,y0,0,H);g.addColorStop(0,'rgba(110,92,60,.4)');g.addColorStop(1,'rgba(36,30,20,.85)');
+    ctx.fillStyle=g;ctx.fillRect(0,y0,W,H-y0);
+    ctx.fillStyle=`rgba(255,235,210,${.3*(1-dw*.6)})`;ctx.fillRect(0,y0-dpr,W,2*dpr);
+    const n=Math.floor(dw*7);
+    for(let i=0;i<n;i++){
+      const fx=((i*.137+.05+T*.004*(1+i%3))%1)*W,fy=y0+H*.01*(i%3)+Math.sin(T*1.5+i)*2*dpr,u=W*.02;
+      if(i%3===0){ctx.fillStyle='rgba(190,220,235,.85)';ctx.fillRect(fx,fy-u*.5,u*.4,u)}
+      else if(i%3===1){ctx.fillStyle='#8a6a3f';ctx.fillRect(fx,fy-u*.7,u*1.2,u*.7)}
+      else{ctx.fillStyle='rgba(240,240,240,.85)';ctx.beginPath();ctx.ellipse(fx,fy-u*.2,u*.6,u*.35,0,0,7);ctx.fill()}
+    }
+    const ri=clamp((dw-.3)/.6);
+    if(ri>0&&Math.random()<ri*.9*dt*60*.5&&ripples.length<40)ripples.push({x:Math.random()*W,y:y0+Math.random()*(H-y0),a:0});
+    ctx.lineWidth=dpr;
+    ripples=ripples.filter(p=>(p.a+=dt*1.4)<1);
+    ripples.forEach(p=>{ctx.strokeStyle=`rgba(230,235,240,${.35*(1-p.a)})`;ctx.beginPath();ctx.ellipse(p.x,p.y,p.a*22*dpr,p.a*6*dpr,0,0,7);ctx.stroke()});
+  }
+  ctx.setTransform(1,0,0,1,0,0);
+  const ri=phase==='end'&&kind==='A'?0:clamp((dw-.3)/.6);
+  if(ri>0){
+    ctx.strokeStyle=`rgba(205,218,232,${.2+.25*ri})`;ctx.lineWidth=dpr;ctx.beginPath();
+    const n=Math.floor(60+220*ri);
+    for(let i=0;i<n;i++){const px=(((i*137.5)%W)+T*-60*dpr)%W,py=(((i*61.7)%H)+T*900*dpr*(.8+(i%5)*.1))%H,px2=(px+W)%W;ctx.moveTo(px2,py);ctx.lineTo(px2-2*dpr,py+14*dpr)}
+    ctx.stroke();
+  }
+  const v=ctx.createRadialGradient(W/2,H/2,H*.25,W/2,H/2,H*.9);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,`rgba(0,0,0,${.45+.3*dw})`);
+  ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  if(T<1.4){ctx.fillStyle=`rgba(0,0,0,${1-T/1.4})`;ctx.fillRect(0,0,W,H)}
+  $('wl').textContent=String(Math.round(dw*100)).padStart(2,'0')+'%';
 }
-function startLeaves(){
- var L=$('leaves');L.innerHTML='';
- for(var i=0;i<18;i++){var s=document.createElement('span');s.className='leaf';s.textContent=i%3?'🍃':'🌿';
-  s.style.left=Math.random()*100+'%';s.style.animationDuration=(6+Math.random()*6)+'s';s.style.animationDelay=(-Math.random()*8)+'s';L.appendChild(s);}
+
+function showQ(){
+  locked=false;sel=-1;const q=Q[qi];
+  $('qn').textContent='QUESTION '+String(qi+1).padStart(2,'0')+' / 05';
+  $('qt').textContent=q.q;$('ex').textContent='';$('ex').className='';
+  const o=$('opts');o.innerHTML='';
+  q.o.forEach((t,i)=>{
+    const b=document.createElement('button');b.className='opt';b.innerHTML='<b>'+'ABCD'[i]+'</b><span></span>';b.lastChild.textContent=t;
+    b.onclick=()=>{if(locked)return;sel=i;[...o.children].forEach((x,j)=>x.classList.toggle('sel',j===i));$('confirm').disabled=false};
+    o.appendChild(b);
+  });
+  $('confirm').textContent='CONFIRM ANSWER';$('confirm').disabled=true;
 }
-function restart(){
- idx=0;right=0;wrong=0;sel=-1;answered=false;
- $('leaves').innerHTML='';$('more').style.display='none';
- $('end').classList.add('hide');$('game').classList.remove('hide');
- setWater(0);render();
+
+function startGame(){
+  qi=0;correct=0;tw=0;dw=0;phase='quiz';endOn=false;
+  $('end').classList.remove('on');$('end').classList.add('hide');
+  $('intro').classList.add('hide');$('quiz').classList.remove('hide');
+  showQ();
 }
-function learn(){
- var m=$('more');
- if(!m.innerHTML){m.innerHTML=Q.map(function(d){return '<li><b>'+d.t+':</b> '+d.e+'</li>'}).join('');}
- m.style.display=m.style.display==='block'?'none':'block';
+
+$('start').onclick=startGame;
+$('again').onclick=startGame;
+$('confirm').onclick=()=>{
+  const q=Q[qi],o=$('opts').children;
+  if(!locked){
+    if(sel<0)return;
+    locked=true;const ok=sel===q.c;
+    o[q.c].classList.add('ok');if(!ok)o[sel].classList.add('no');
+    if(ok)correct++;else{tw=Math.min(1,tw+.2);shake=1}
+    $('ex').textContent=(ok?'ถูกต้อง! ':'ยังไม่ถูก ')+q.e;$('ex').className='on';
+    $('confirm').textContent=qi<4?'NEXT QUESTION':'SEE THE ENDING';
+  }else if(qi<4){qi++;showQ()}
+  else endGame();
+};
+
+function endGame(){
+  phase='end';endOn=false;tEnd=performance.now();
+  const wrong=5-correct;kind=wrong===0?'A':wrong>=3?'B':'C';
+  $('quiz').classList.add('hide');
+  const E={A:['IS DOING JUST FINE.','EVERY CHOICE MATTERS.','PLAY AGAIN'],B:['IS SINKING.','YOUR CHOICES CHANGED THE CITY.','TRY AGAIN'],C:['IS HOLDING ON.','THE WATER IS RISING. THE CITY STILL STANDS.','TRY AGAIN']}[kind];
+  $('e1').style.display=kind==='B'?'block':'none';
+  $('e2').textContent=E[0];$('e3').textContent=E[1];$('again').textContent=E[2];
+  $('e4').innerHTML=correct+' / 5 CORRECT<br>WATER LEVEL '+String(Math.round(tw*100)).padStart(2,'0')+'%';
+  $('end').style.top=kind==='B'?'26%':'44%';
+  $('end').classList.remove('hide','on');
 }
-$('confirm').onclick=confirmAns;$('next').onclick=next;$('again').onclick=restart;$('learn').onclick=learn;
-restart();
-})();
+
+addEventListener('resize',build);
+build();
+requestAnimationFrame(frame);
 </script>
 </body>
 </html>
